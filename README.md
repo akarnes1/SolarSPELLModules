@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-# SolarSPELL
-Content Website of the SolarSPELL System
-=======
 # SolarSPELLModules
 An addition to the SolarSPELL for wireless sensor modules
->>>>>>> ad5b1a43980392eae0b6b6585ea7236ab0d32c6c
+
+This project is to add a server that allows for the collection of data via arduino sensors to be displayed on the SolarSPELL website. The sensors are to be arduino based sensors with a esp8266 wifi module. 
