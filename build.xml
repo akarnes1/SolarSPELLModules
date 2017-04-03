@@ -1,0 +1,57 @@
+<project name="SolarSpellModules" default="dist" basedir=".">
+  <description>
+    Build file for the server that is to run for module data collection
+  </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src/modules"/>
+  <property name="server" value="server"/>
+  <property name="client" value="client"/>
+  <property name="build" location="build"/>
+  <property name="dist" location="dist"/>
+  <property name="proj" value="solarSpellModules"/>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="buildServer" depends="init"
+        description="compile the source">
+    <!-- Compile the code from ${src} into ${build} -->
+    <echo>Compilation started</echo>
+    <exec executable="gcc">
+      <arg value="-Wall"/>
+      <arg value="-o"/>
+      <arg value="${build}/${proj}Server"/>
+      <arg value="${src}/${server}/${server}.c"/>
+      <arg value="-L=lWiringPi"/>
+      <arg value="-lpthread"/>
+    </exec>
+    <echo>Compilation completed</echo>
+  </target>
+
+  <target name="buildClient" depends="init"
+        description="compile the source">
+    <!-- Compile the code from ${src} into ${build} -->
+    <echo>Compilation started</echo>
+    <exec executable="gcc">
+      <arg value="-Wall"/>
+      <arg value="-o"/>
+      <arg value="${build}/${proj}Client}"/>
+      <arg value="${src}/${client}/${client}.c"/>
+      <arg value="-L=lWiringPi"/>
+    </exec>
+    <echo>Compilation completed</echo>
+  </target>
+
+  <target name="dist" depends="buildServer, buildClient"
+        description="generate the distribution">
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}/lib"/>
+
+    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+    <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
+  </target>
+</project>
